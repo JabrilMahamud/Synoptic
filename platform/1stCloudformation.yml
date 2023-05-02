@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+  # Create an SQS queue
+  Queue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: my-queue
+
+  # Create a Lambda function
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: my-function
+      Runtime: python3.8
+      Code:
+        ZipFile: !Sub |
+          def lambda_handler(event, context):
+            print("success")
+
+      Role: !GetAtt FunctionRole.Arn
+
+  # Create an EventBridge rule
+  Rule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: my-rule
+      Description: EventBridge rule to trigger a Lambda function when an EC2 instance is made
+      EventPattern:
+        source:
+          - aws.ec2
+        detail-type:
+          - "EC2 Instance Launch Successful"
+
+      State: ENABLED
+
+      Targets:
+        - Arn: !GetAtt Function.Arn
+          Id: my-function
+
+  # Create a role for the Lambda function
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: my-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sqs:SendMessage
+                Resource: !GetAtt Queue.Arn
+
+Outputs:
+  # Output the SQS queue URL
+  QueueUrl:
+    Value: !GetAtt Queue.Arn
+  # Output the Lambda function ARN
+  FunctionArn:
+    Value: !GetAtt Function.Arn
