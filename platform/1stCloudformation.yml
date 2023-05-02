@@ -1,6 +1,27 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 Resources:
+  # Create a role for the Lambda function
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: my-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sqs:SendMessage
+                Resource: !GetAtt Queue.Arn
+
   # Create an SQS queue
   Queue:
     Type: AWS::SQS::Queue
@@ -13,6 +34,7 @@ Resources:
     Properties:
       FunctionName: my-function
       Runtime: python3.8
+      handler: index.handler
       Code:
         ZipFile: !Sub |
           def lambda_handler(event, context):
@@ -38,31 +60,3 @@ Resources:
         - Arn: !GetAtt Function.Arn
           Id: my-function
 
-  # Create a role for the Lambda function
-  FunctionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      Policies:
-        - PolicyName: my-policy
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - sqs:SendMessage
-                Resource: !GetAtt Queue.Arn
-
-Outputs:
-  # Output the SQS queue URL
-  QueueUrl:
-    Value: !GetAtt Queue.Arn
-  # Output the Lambda function ARN
-  FunctionArn:
-    Value: !GetAtt Function.Arn
