@@ -34,7 +34,7 @@ Resources:
     Properties:
       FunctionName: my-function
       Runtime: python3.8
-      handler: index.handler
+      Handler: index.handler
       Code:
         ZipFile: !Sub |
           def lambda_handler(event, context):
