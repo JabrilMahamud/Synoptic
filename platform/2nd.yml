@@ -13,7 +13,7 @@ Resources:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: my-policy
+        - PolicyName: V2-policy
           PolicyDocument:
             Version: 2012-10-17
             Statement:
@@ -26,22 +26,22 @@ Resources:
   Queue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: my-queue
+      QueueName: V2-queue
 
   # Create a Lambda function
   Function:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: my-function
+      FunctionName: V2-function
       Runtime: python3.8
       Handler: index.handler
       Code:
         ZipFile: !Sub |
           def lambda_handler(event, context):
-          import boto3
-          sqs = boto3.resources('sqs')
-          queue = sqs.get_queue_by_name(QueueName='my-queue')
-          response = queue.send_message(
+            import boto3
+            sqs = boto3.resources('sqs')
+            queue = sqs.get_queue_by_name(QueueName='V2-queue')
+            response = queue.send_message(
               MessageBody="boto3",
               MessageAttributes={
                   'KeyPair': {
@@ -49,10 +49,10 @@ Resources:
                       'Key2': 'Pair2'
                   }
               }
-          )
+            )
 
-          return response.get('MessageId')
-          return response.get('MD5OfMessageBody')
+            return response.get('MessageId')
+            return response.get('MD5OfMessageBody')
 
 
       Role: !GetAtt FunctionRole.Arn
@@ -61,7 +61,7 @@ Resources:
   Rule:
     Type: AWS::Events::Rule
     Properties:
-      Name: my-rule
+      Name: V2-rule
       Description: EventBridge rule to trigger a Lambda function when an EC2 instance is made
       EventBusName: default
       EventPattern:
@@ -69,10 +69,13 @@ Resources:
           - aws.ec2
         detail-type:
           - "EC2 Instance Launch Successful"
+        detail:
+          instance-id:
+            - i-0123456789abcdef0
 
       State: ENABLED
 
       Targets:
         - Arn: !GetAtt Function.Arn
-          Id: my-function
+          Id: V2-function
 
