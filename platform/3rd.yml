@@ -21,7 +21,49 @@ Resources:
                 Action:
                   - sqs:SendMessage
                 Resource: !GetAtt Queue.Arn
+  #Create a cloudtrail role
+  CloudTrailRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CloudTrailPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:RunInstances
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - cloudtrail:GetTrailEvents
+                Resource: '*'
+  #Create a cloudTrail event
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      TrailName: !Sub 'my-cloudtrail'
+      S3BucketName: !Sub 'my-cloudtrail-bucket'
+      EnableLogFileValidation: True
+      IsLogging: True
+      IncludeGlobalServiceEvents: True
+      IsMultiRegionTrail: False
+      CloudWatchLogsLogGroupArn: !GetAtt CloudWatchLogsLogGroup.Arn
+      CloudWatchLogsRoleArn: !GetAtt CloudTrailRole.Arn
 
+  # Create a CloudWatch Logs log group
+  CloudWatchLogsLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 365
+      
   # Create an SQS queue
   Queue:
     Type: AWS::SQS::Queue
@@ -73,3 +115,4 @@ Resources:
       Targets:
         - Arn: !GetAtt Function.Arn
           Id: my-function
+  

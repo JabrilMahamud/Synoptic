@@ -1,0 +1,30 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  Lambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          def handler(event, context):
+            message = 'Hello World!'
+            return message
+      FunctionName: !Sub ${AWS::StackName}-lambda
+      Handler: index.handler
+      Runtime: python3.9
+      Timeout: 300
+      MemorySize: 192
+      Role: !GetAtt LambdaRole.Arn
+      Architectures:
+        - arm64
+
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: LambdaRole
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole

@@ -1,0 +1,378 @@
+{
+    "event": {
+        "version": "0",
+        "id": "6c85a8a9-862a-a3b4-1cd9-9c358593c85d",
+        "detail-type": "AWS API Call via CloudTrail",
+        "source": "aws.ec2",
+        "account": "763139323698",
+        "time": "2023-05-04T10:27:27Z",
+        "region": "eu-west-1",
+        "resources": [],
+        "detail": {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "AssumedRole",
+                "principalId": "AROA3DLVF64ZD4UYFWRQQ:databricks",
+                "arn": "arn:aws:sts::763139323698:assumed-role/DBX_Cross_Account_Role/databricks",
+                "accountId": "763139323698",
+                "accessKeyId": "ASIA3DLVF64ZBM66M25H",
+                "sessionContext": {
+                    "sessionIssuer": {
+                        "type": "Role",
+                        "principalId": "AROA3DLVF64ZD4UYFWRQQ",
+                        "arn": "arn:aws:iam::763139323698:role/DBX_Cross_Account_Role",
+                        "accountId": "763139323698",
+                        "userName": "DBX_Cross_Account_Role"
+                    },
+                    "webIdFederationData": {},
+                    "attributes": {
+                        "creationDate": "2023-05-04T10:19:18Z",
+                        "mfaAuthenticated": "false"
+                    }
+                }
+            },
+            "eventTime": "2023-05-04T10:27:27Z",
+            "eventSource": "ec2.amazonaws.com",
+            "eventName": "RunInstances",
+            "awsRegion": "eu-west-1",
+            "sourceIPAddress": "46.137.47.49",
+            "userAgent": "aws-sdk-java/1.12.261 Linux/5.4.0-1099-aws-fips OpenJDK_64-Bit_Server_VM/11.0.18+10-jvmci-22.3-b13 java/11.0.18 scala/2.12.15 kotlin/1.6.21 vendor/GraalVM_Community cfg/retry-mode/legacy",
+            "requestParameters": {
+                "instancesSet": {
+                    "items": [
+                        {
+                            "imageId": "ami-0828d113766bcc427",
+                            "minCount": 1,
+                            "maxCount": 1,
+                            "keyName": "DATABRICKS-ONLY-DO-NOT-USE-dbe-worker-workerenv-4410115038616970-dab06c14-d97e-4689-87dd-3324e759d3fb"
+                        }
+                    ]
+                },
+                "userData": "<sensitiveDataRemoved>",
+                "instanceType": "r5.large",
+                "blockDeviceMapping": {
+                    "items": [
+                        {
+                            "deviceName": "/dev/sda1",
+                            "ebs": {
+                                "volumeSize": 30,
+                                "deleteOnTermination": true,
+                                "volumeType": "gp2",
+                                "encrypted": true
+                            }
+                        },
+                        {
+                            "deviceName": "/dev/xvdb",
+                            "ebs": {
+                                "volumeSize": 150,
+                                "deleteOnTermination": true,
+                                "volumeType": "gp2",
+                                "encrypted": true
+                            }
+                        },
+                        {
+                            "deviceName": "/dev/xvdc",
+                            "ebs": {
+                                "volumeSize": 32,
+                                "deleteOnTermination": true,
+                                "volumeType": "gp2",
+                                "encrypted": true
+                            }
+                        },
+                        {
+                            "deviceName": "/dev/xvdd",
+                            "ebs": {
+                                "volumeSize": 32,
+                                "deleteOnTermination": true,
+                                "volumeType": "gp2",
+                                "encrypted": true
+                            }
+                        },
+                        {
+                            "deviceName": "/dev/xvde",
+                            "ebs": {
+                                "volumeSize": 32,
+                                "deleteOnTermination": true,
+                                "volumeType": "gp2",
+                                "encrypted": true
+                            }
+                        },
+                        {
+                            "deviceName": "/dev/xvdf",
+                            "ebs": {
+                                "volumeSize": 32,
+                                "deleteOnTermination": true,
+                                "volumeType": "gp2",
+                                "encrypted": true
+                            }
+                        }
+                    ]
+                },
+                "availabilityZone": "eu-west-1a",
+                "monitoring": {
+                    "enabled": false
+                },
+                "disableApiTermination": false,
+                "disableApiStop": false,
+                "clientToken": "fdaad38b-8d60-422a-929a-fe49a711f9e3",
+                "networkInterfaceSet": {
+                    "items": [
+                        {
+                            "deviceIndex": 0,
+                            "subnetId": "subnet-025891ed120e1c1e1",
+                            "description": "databricks_netif",
+                            "deleteOnTermination": true,
+                            "associatePublicIpAddress": false,
+                            "groupSet": {
+                                "items": [
+                                    {
+                                        "groupId": "sg-048c88f92a4e6cec1"
+                                    }
+                                ]
+                            },
+                            "secondaryPrivateIpAddressCount": 1
+                        }
+                    ]
+                },
+                "tagSpecificationSet": {
+                    "items": [
+                        {
+                            "resourceType": "instance",
+                            "tags": [
+                                {
+                                    "key": "DatabricksInstancePoolCreatorId",
+                                    "value": "6816492400171755"
+                                },
+                                {
+                                    "key": "Name",
+                                    "value": "workerenv-4410115038616970-dab06c14-d97e-4689-87dd-3324e759d3fb-worker"
+                                },
+                                {
+                                    "key": "DatabricksInstancePoolId",
+                                    "value": "0419-101430-execs18-pool-r3um9s0d"
+                                },
+                                {
+                                    "key": "management_service",
+                                    "value": "instance_manager_service"
+                                },
+                                {
+                                    "key": "Vendor",
+                                    "value": "Databricks"
+                                },
+                                {
+                                    "key": "DatabricksInstanceGroupId",
+                                    "value": "-6878392780415954187"
+                                }
+                            ]
+                        },
+                        {
+                            "resourceType": "volume",
+                            "tags": [
+                                {
+                                    "key": "DatabricksInstancePoolCreatorId",
+                                    "value": "6816492400171755"
+                                },
+                                {
+                                    "key": "Name",
+                                    "value": "workerenv-4410115038616970-dab06c14-d97e-4689-87dd-3324e759d3fb-worker"
+                                },
+                                {
+                                    "key": "DatabricksInstancePoolId",
+                                    "value": "0419-101430-execs18-pool-r3um9s0d"
+                                },
+                                {
+                                    "key": "management_service",
+                                    "value": "instance_manager_service"
+                                },
+                                {
+                                    "key": "Vendor",
+                                    "value": "Databricks"
+                                },
+                                {
+                                    "key": "DatabricksInstanceGroupId",
+                                    "value": "-6878392780415954187"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "metadataOptions": {
+                    "httpPutResponseHopLimit": 2
+                }
+            },
+            "responseElements": {
+                "requestId": "bb6a7a6a-158b-4ab4-b7b3-9497f550e313",
+                "reservationId": "r-09f2af3762b270cf9",
+                "ownerId": "763139323698",
+                "groupSet": {},
+                "instancesSet": {
+                    "items": [
+                        {
+                            "instanceId": "i-0da39dfa731c4d156",
+                            "imageId": "ami-0828d113766bcc427",
+                            "currentInstanceBootMode": "legacy-bios",
+                            "instanceState": {
+                                "code": 0,
+                                "name": "pending"
+                            },
+                            "privateDnsName": "ip-10-1-0-137.eu-west-1.compute.internal",
+                            "keyName": "DATABRICKS-ONLY-DO-NOT-USE-dbe-worker-workerenv-4410115038616970-dab06c14-d97e-4689-87dd-3324e759d3fb",
+                            "amiLaunchIndex": 0,
+                            "productCodes": {},
+                            "instanceType": "r5.large",
+                            "launchTime": 1683196047000,
+                            "placement": {
+                                "availabilityZone": "eu-west-1a",
+                                "tenancy": "default"
+                            },
+                            "monitoring": {
+                                "state": "disabled"
+                            },
+                            "subnetId": "subnet-025891ed120e1c1e1",
+                            "vpcId": "vpc-08fda9ec71edb1aa1",
+                            "privateIpAddress": "10.1.0.137",
+                            "stateReason": {
+                                "code": "pending",
+                                "message": "pending"
+                            },
+                            "architecture": "x86_64",
+                            "rootDeviceType": "ebs",
+                            "rootDeviceName": "/dev/sda1",
+                            "blockDeviceMapping": {},
+                            "virtualizationType": "hvm",
+                            "hypervisor": "xen",
+                            "tagSet": {
+                                "items": [
+                                    {
+                                        "key": "management_service",
+                                        "value": "instance_manager_service"
+                                    },
+                                    {
+                                        "key": "DatabricksInstanceGroupId",
+                                        "value": "-6878392780415954187"
+                                    },
+                                    {
+                                        "key": "DatabricksInstancePoolCreatorId",
+                                        "value": "6816492400171755"
+                                    },
+                                    {
+                                        "key": "Vendor",
+                                        "value": "Databricks"
+                                    },
+                                    {
+                                        "key": "Name",
+                                        "value": "workerenv-4410115038616970-dab06c14-d97e-4689-87dd-3324e759d3fb-worker"
+                                    },
+                                    {
+                                        "key": "DatabricksInstancePoolId",
+                                        "value": "0419-101430-execs18-pool-r3um9s0d"
+                                    }
+                                ]
+                            },
+                            "clientToken": "fdaad38b-8d60-422a-929a-fe49a711f9e3",
+                            "groupSet": {
+                                "items": [
+                                    {
+                                        "groupId": "sg-048c88f92a4e6cec1",
+                                        "groupName": "DatabricksSecurityGroup"
+                                    }
+                                ]
+                            },
+                            "sourceDestCheck": true,
+                            "networkInterfaceSet": {
+                                "items": [
+                                    {
+                                        "networkInterfaceId": "eni-08de0e39395fc6209",
+                                        "subnetId": "subnet-025891ed120e1c1e1",
+                                        "vpcId": "vpc-08fda9ec71edb1aa1",
+                                        "description": "databricks_netif",
+                                        "ownerId": "763139323698",
+                                        "status": "in-use",
+                                        "macAddress": "0a:09:b7:92:d9:29",
+                                        "privateIpAddress": "10.1.0.137",
+                                        "privateDnsName": "ip-10-1-0-137.eu-west-1.compute.internal",
+                                        "sourceDestCheck": true,
+                                        "interfaceType": "interface",
+                                        "groupSet": {
+                                            "items": [
+                                                {
+                                                    "groupId": "sg-048c88f92a4e6cec1",
+                                                    "groupName": "DatabricksSecurityGroup"
+                                                }
+                                            ]
+                                        },
+                                        "attachment": {
+                                            "attachmentId": "eni-attach-02b6904c99b0cb5a4",
+                                            "deviceIndex": 0,
+                                            "networkCardIndex": 0,
+                                            "status": "attaching",
+                                            "attachTime": 1683196047000,
+                                            "deleteOnTermination": true
+                                        },
+                                        "privateIpAddressesSet": {
+                                            "item": [
+                                                {
+                                                    "privateIpAddress": "10.1.0.137",
+                                                    "privateDnsName": "ip-10-1-0-137.eu-west-1.compute.internal",
+                                                    "primary": true
+                                                },
+                                                {
+                                                    "privateIpAddress": "10.1.3.206",
+                                                    "privateDnsName": "ip-10-1-3-206.eu-west-1.compute.internal",
+                                                    "primary": false
+                                                }
+                                            ]
+                                        },
+                                        "ipv6AddressesSet": {},
+                                        "tagSet": {}
+                                    }
+                                ]
+                            },
+                            "ebsOptimized": false,
+                            "enaSupport": true,
+                            "cpuOptions": {
+                                "coreCount": 1,
+                                "threadsPerCore": 2
+                            },
+                            "capacityReservationSpecification": {
+                                "capacityReservationPreference": "open"
+                            },
+                            "enclaveOptions": {
+                                "enabled": false
+                            },
+                            "metadataOptions": {
+                                "state": "pending",
+                                "httpTokens": "optional",
+                                "httpPutResponseHopLimit": 2,
+                                "httpEndpoint": "enabled",
+                                "httpProtocolIpv4": "enabled",
+                                "httpProtocolIpv6": "disabled",
+                                "instanceMetadataTags": "disabled"
+                            },
+                            "maintenanceOptions": {
+                                "autoRecovery": "default"
+                            },
+                            "privateDnsNameOptions": {
+                                "hostnameType": "ip-name",
+                                "enableResourceNameDnsARecord": false,
+                                "enableResourceNameDnsAAAARecord": false
+                            }
+                        }
+                    ]
+                }
+            },
+            "requestID": "bb6a7a6a-158b-4ab4-b7b3-9497f550e313",
+            "eventID": "93620b1a-3d5b-4c2e-88ec-8a172e4b12f5",
+            "readOnly": false,
+            "eventType": "AwsApiCall",
+            "managementEvent": true,
+            "recipientAccountId": "763139323698",
+            "eventCategory": "Management",
+            "tlsDetails": {
+                "tlsVersion": "TLSv1.2",
+                "cipherSuite": "ECDHE-RSA-AES128-GCM-SHA256",
+                "clientProvidedHostHeader": "ec2.eu-west-1.amazonaws.com"
+            }
+        }
+    }
+}
