@@ -2,9 +2,9 @@ import boto3
 import json
 
 # Function to tag an EC2 instance
-def tag_ec2_instance(instance_id, tags):
+def tag_ec2_instance(instance_id, tags, region_name):
     # Create a Boto3 EC2 client
-    ec2_client = boto3.client('ec2', region_name='eu-west-2')
+    ec2_client = boto3.client('ec2', region_name=region_name)
     
     # Convert the hash table into a list of dictionaries
     tag_list = [{'Key': key, 'Value': value} for key, value in tags.items()]
@@ -20,7 +20,8 @@ def tag_ec2_instance(instance_id, tags):
 
 
 # Read the JSON file
-with open(r'C:/Users/maham/OneDrive/Desktop/github repo/github repo/Synoptic/cfn/ct_event.json') as file:
+file_path = r'C:\Users\maham\OneDrive\Desktop\github repo\github repo\Synoptic\cfn\ct_event.json'
+with open(file_path) as file:
     data = json.load(file)
 
 # Extract the tags from the JSON data
@@ -40,9 +41,11 @@ for tag in tags:
 for key, value in hash_table.items():
     print(f"Key: {key}, Value: {value}")
 
-# Select an EC2 instance ID (replace with your own logic to choose the instance)
-instance_id = 'i-0f634885c5daddc11'
+# Ask the user for the region name
+region_name = input("Enter the region name: ")
+
+# Ask the user for the EC2 instance ID
+instance_id = input("Enter the EC2 instance ID: ")
 
 # Tag the selected EC2 instance with the key-value pairs
-tag_ec2_instance(instance_id, hash_table)
-print("success?")
+tag_ec2_instance(instance_id, hash_table, region_name)
